@@ -3,6 +3,7 @@ from locators.order_page_locators import Order
 import allure
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+from util import wait_for_click_not_intercepted
 
 
 @allure.step('Кликаем по кнопке "Заказать" в шапке, заполняем форму заказа, '
@@ -31,6 +32,7 @@ def click_header_and_order(driver):
 def click_middle_and_order(driver):
     element = driver.find_elements(*QuestionsAboutImportant.order_button)[2]
     driver.execute_script("arguments[0].scrollIntoView();", element)
+    wait_for_click_not_intercepted(element)
     driver.find_elements(*QuestionsAboutImportant.order_button)[2].click()
     driver.find_elements(*Order.order_input)[1].send_keys('Баширов')
     driver.find_elements(*Order.order_input)[2].send_keys('Димитрий')
